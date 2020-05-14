@@ -1,0 +1,8 @@
+zuul:
+  routes:
+    users:
+      path: /users/**
+      url: http://localhost:8081/users
+    books:
+      path: /books/**
+      url: http://localhost:8082/books
