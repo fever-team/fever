@@ -1,9 +1,9 @@
 {
-  "name": "react-template",
+  "name": "fever-frontend",
   "version": "0.1.0",
-  "description": "react starter template (typescript)",
+  "description": "fever frontend project",
   "author": "sudosubin",
-  "repository": "git://github.com/sudosubin/react-template.git",
+  "repository": "git://github.com/fever-team/fever.git",
   "license": "MIT",
   "private": true,
   "dependencies": {
