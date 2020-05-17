@@ -20,6 +20,7 @@
     "i18next": "^19.0.3",
     "i18next-browser-languagedetector": "^4.0.1",
     "react": "^16.12.0",
+    "react-app-rewired": "^2.1.6",
     "react-dom": "^16.12.0",
     "react-i18next": "^11.2.7",
     "react-router-dom": "^5.1.2",
@@ -28,10 +29,10 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "REACT_APP_MODE=dev react-scripts start",
-    "start:prod": "REACT_APP_MODE=prod react-scripts start",
-    "build": "REACT_APP_MODE=prod react-scripts build",
-    "test": "react-scripts test",
+    "start": "REACT_APP_MODE=dev react-app-rewired start",
+    "start:prod": "REACT_APP_MODE=prod react-app-rewired start",
+    "build": "REACT_APP_MODE=prod react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
