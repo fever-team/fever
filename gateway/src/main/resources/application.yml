@@ -1,8 +1,12 @@
-zuul:
-  routes:
-    users:
-      path: /users/**
-      url: http://localhost:8081/users
-    books:
-      path: /books/**
-      url: http://localhost:8082/books
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: users
+          uri: http://localhost:8081/users
+          predicates:
+            - Path=/users/**
+        - id: books
+          uri: http://localhost:8082/books
+          predicates:
+            - Path=/books/**
