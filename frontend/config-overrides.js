@@ -1,14 +1,9 @@
-const path = require('path');
+const { alias, configPaths } = require('react-app-rewire-alias')
 
 module.exports = function override(config) {
-  config.resolve = {
-    ...config.resolve,
-    alias: { '@components': path.resolve(__dirname, 'src/components/atoms') },
-    alias: { '@components': path.resolve(__dirname, 'src/components/molecules') },
-    alias: { '@components': path.resolve(__dirname, 'src/components/organisms') },
-    alias: { '@components': path.resolve(__dirname, 'src/components/templates') },
-    alias: { '@components': path.resolve(__dirname, 'src/components/pages') },
-  };
+  alias({
+    ...configPaths('tsconfig.paths.json')
+  })(config);
 
   return config;
-};
+}

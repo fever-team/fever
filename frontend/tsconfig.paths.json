@@ -7,7 +7,7 @@
         "components/molecules/*",
         "components/organisms/*",
         "components/templates/*",
-        "components/pages/*",
+        "components/pages/*"
       ]
     }
   }
