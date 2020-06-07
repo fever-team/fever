@@ -3,7 +3,7 @@ import i18n from './i18n';
 import { WithTranslation } from 'react-i18next';
 import { RouteProps, RouteComponentProps } from 'react-router-dom';
 
-import Main from '@components/Main';
+import Main from './components/pages/Main';
 
 export interface Props {
   // Add some common props here
