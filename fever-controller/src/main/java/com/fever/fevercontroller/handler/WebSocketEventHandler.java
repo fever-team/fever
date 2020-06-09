@@ -11,6 +11,6 @@ public class WebSocketEventHandler {
     // Subscribe 이벤트 발생시 동작
     @EventListener
     public void handleSessionSubscribeEvent(SessionSubscribeEvent event) {
-
+        System.out.println("Connect!");
     }
 }
