@@ -13,8 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'net.sf.grinder:grinder-core:3.9.1'
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.50.Final'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
