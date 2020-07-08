@@ -1,4 +1,4 @@
-package com.fever.agent.service;
+package com.fever.agent.model;
 
 public class CustomMessage {
 

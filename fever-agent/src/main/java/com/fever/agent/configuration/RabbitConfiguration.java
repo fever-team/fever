@@ -1,4 +1,4 @@
-package com.fever.agent;
+package com.fever.agent.configuration;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
