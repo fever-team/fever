@@ -3,6 +3,7 @@ import React from 'react';
 import { Props as RouteProps } from '../../../routes';
 import { Props as AppProps } from '../../App';
 
+import PageWrapper from '../../atoms/PageWrapper';
 import Header from '../../organisms/Header';
 import Requester from '../../organisms/Requester';
 
@@ -13,7 +14,9 @@ const Main: React.FC<Props> = (props: Props) => {
   return (
     <>
       <Header />
-      <Requester />
+      <PageWrapper>
+        <Requester />
+      </PageWrapper>
     </>
   )
 }

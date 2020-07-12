@@ -1,28 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Text, Icon, Navbar, Button, Alignment } from '@blueprintjs/core';
+
 
 export interface Props { }
 
 
-// TODO(sudosubin): move component to molecules
-const Wrapper = styled.div`
-  width: 100%;
-
-  margin: 0;
-  padding: 10px;
-
-  background-color: #DFDFDF;
-
-  font-size: 16px;
-  font-weight: bold;
-`
-
-
 const Header: React.FC<Props> = (props: Props) => {
   return (
-    <>
-      <Wrapper>Header</Wrapper>
-    </>
+    <Navbar>
+      <Navbar.Group align={Alignment.LEFT}>
+        <Navbar.Heading>
+          <Text><Icon icon="flame" /> Fever</Text>
+        </Navbar.Heading>
+        <Navbar.Divider />
+        <Button className="bp3-minimal" icon="home" text="Home" />
+        <Button className="bp3-minimal" icon="lab-test" text="Test" />
+      </Navbar.Group>
+    </Navbar>
   )
 }
 
