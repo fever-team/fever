@@ -12,6 +12,8 @@ public class AgentController {
     @MessageMapping("/controller")
     @SendTo("/topic/greetings")
     public AgentRequest controllerRequest(@Payload AgentRequest agentRequest) {
+        System.out.println(agentRequest.getContent());
+
         return agentRequest;
     }
 }
