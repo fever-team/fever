@@ -1,7 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { withTranslation, WithTranslation } from 'react-i18next';
+
+// Import blueprint css files
+import "normalize.css";
+import "@blueprintjs/core/lib/css/blueprint.css";
+import "@blueprintjs/icons/lib/css/blueprint-icons.css";
+
+
 import routes from '../routes';
+
 
 export interface Props extends WithTranslation { } {};
 
