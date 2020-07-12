@@ -24,7 +24,7 @@ public class CommRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Sending Message....");
         log.info("Sending Message....");
-        CustomMessage message = new CustomMessage("Hello Message!", 1, true);
+        CustomMessage message = new CustomMessage("http://localhost:5000/v1/posts", 1000, true);
         rabbitTemplate.convertAndSend(topicExchange, "foo.bar.baz", message);
     }
 }

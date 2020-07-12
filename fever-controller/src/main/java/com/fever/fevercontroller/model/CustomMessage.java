@@ -4,16 +4,16 @@ public class CustomMessage {
 
     private String text;
 
-    private int priority;
+    private int userCount;
 
     private boolean secret;
 
     protected CustomMessage() {
     }
 
-    public CustomMessage(String text, int priority, boolean secret) {
+    public CustomMessage(String text, int userCount, boolean secret) {
         this.text = text;
-        this.priority = priority;
+        this.userCount = userCount;
         this.secret = secret;
     }
 
@@ -21,8 +21,8 @@ public class CustomMessage {
         return text;
     }
 
-    public int getPriority() {
-        return priority;
+    public int getUserCount() {
+        return userCount;
     }
 
     public boolean isSecret() {
@@ -33,7 +33,7 @@ public class CustomMessage {
     public String toString() {
         return "CustomMessage{" +
                 "text='" + text + '\'' +
-                ", priority=" + priority +
+                ", userCount=" + userCount +
                 ", secret=" + secret +
                 '}';
     }
