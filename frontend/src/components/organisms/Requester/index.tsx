@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { InputGroup, Button } from '@blueprintjs/core';
 
 import Form from '../../atoms/Form';
+import FlexWrapper from '../../atoms/FlexWrapper';
 import MethodSelector, { Method } from '../../molecules/MethodSelector';
 import { Props as MainProps } from '../../pages/Main';
 
@@ -11,6 +12,23 @@ import testOnce from '../../../api/controller/testOnce';
 
 
 export interface Props extends MainProps { }
+
+
+const Wrapper = styled(FlexWrapper)`
+  justify-content: space-between;
+  align-items: center;
+
+  padding-left: 2rem;
+  padding-right: 2rem;
+`
+
+const ButtonWrapper = styled.div`
+  margin-right: 1rem;
+`
+
+const InputGroupWrapper = styled.div`
+  flex-grow: 1;
+`
 
 
 const SubmitButton = <Button minimal={true} intent="primary" icon="arrow-right" />;
@@ -41,14 +59,19 @@ const Requester: React.FC<Props> = (props: Props) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <MethodSelector {...props} methodState={methodState} />
-      <InputGroup
-        leftIcon="search"
-        placeholder={props.i18n.t('input:requester:placeholder')}
-        onChange={handleChange}
-        large={true}
-        rightElement={SubmitButton}
-      />
+      <Wrapper>
+        <ButtonWrapper>
+          <MethodSelector {...props} methodState={methodState} />
+        </ButtonWrapper>
+        <InputGroupWrapper>
+          <InputGroup
+            leftIcon="search"
+            placeholder={props.i18n.t('input:requester:placeholder')}
+            onChange={handleChange}
+            rightElement={SubmitButton}
+          />
+        </InputGroupWrapper>
+      </Wrapper>
     </Form>
   )
 }
