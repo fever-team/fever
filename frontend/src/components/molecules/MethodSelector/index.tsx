@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { atom, useRecoilState, RecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { Button, MenuItem } from "@blueprintjs/core";
@@ -7,16 +8,18 @@ import { Select, IItemRendererProps } from "@blueprintjs/select";
 import { Props as RequesterProps} from '../../organisms/Requester';
 
 
-export interface Props extends RequesterProps { }
+export interface Props extends RequesterProps {
+  methodState: RecoilState<Method>;
+}
 
-type Method = 'GET' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'POST' | 'PUT' | 'PATCH';
+export type Method = 'GET' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'POST' | 'PUT' | 'PATCH';
 
 const MethodSelect = Select.ofType<Method>();
 
 
 const MethodSelector: React.FC<Props> = (props: Props) => {
   const methods: Method[] = ['GET', 'DELETE', 'HEAD', 'OPTIONS', 'POST', 'PUT', 'PATCH'];
-  const [method, setMethod] = useState<Method>(methods[0]);
+  const [method, setMethod] = useRecoilState<Method>(props.methodState);
 
   const MethodRenderer = (item: Method, itemProps: IItemRendererProps) => {
     return (
