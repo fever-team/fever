@@ -1,29 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { InputGroup, Button } from '@blueprintjs/core';
 
-import { sendRequest, SendRequestResponse } from '../../../utils/sendRequest';
+import Form from '../../atoms/Form';
+import { Props as MainProps } from '../../pages/Main';
+import testOnce from '../../../api/controller/testOnce';
 
 
-export interface Props { }
+export interface Props extends MainProps { }
 
-// TODO(sudosubin): move component to atoms
-const Form = styled.form`
-`
 
-// TODO(sudosubin): move component to atoms
-const Input = styled.input`
-  width: 800px;
-  margin: 40px;
-`
-
-// TODO(sudosubin): move component to atoms
-const Button = styled.button`
-`
+const SubmitButton = <Button minimal={true} intent="primary" icon="arrow-right" />;
 
 
 const Requester: React.FC<Props> = (props: Props) => {
   const [userInput, setUserInput] = useState<string>("");
-  const [result, setResult] = useState<SendRequestResponse | null>(null);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const newValue = e.currentTarget.value;
@@ -32,14 +23,19 @@ const Requester: React.FC<Props> = (props: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const result = await sendRequest(userInput);
-    setResult(result);
+    const result = await testOnce(userInput, 'get');
+    console.log(result);
   }
 
   return (
-    <Form onSubmit={e => handleSubmit(e)}>
-      <Input name="url-box" onChange={e => handleChange(e)} />
-      <Button type="submit">Send Request</Button>
+    <Form onSubmit={handleSubmit}>
+      <InputGroup
+        leftIcon="search"
+        placeholder={props.i18n.t('input:requester:placeholder')}
+        onChange={handleChange}
+        large={true}
+        rightElement={SubmitButton}
+      />
     </Form>
   )
 }

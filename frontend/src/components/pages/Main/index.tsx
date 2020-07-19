@@ -22,7 +22,7 @@ const Main: React.FC<Props> = (props: Props) => {
           content={props.i18n.t('main:jumbotron:contentText')}
           color={'#15B371'}
         />
-        <Requester />
+        <Requester {...props} />
       </PageWrapper>
     </>
   )
