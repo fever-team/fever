@@ -2,17 +2,22 @@ import i18n, { Resource } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+import en from './en';
+
 // translations
-const resources: Resource = {};
+const resources: Resource = { en };
 
 i18n
   .use(initReactI18next)
   .use(LanguageDetector)
   .init({
     resources,
+    fallbackLng: 'en',
+
     interpolation: {
       escapeValue: false,
     },
   });
 
+  
 export default i18n;
