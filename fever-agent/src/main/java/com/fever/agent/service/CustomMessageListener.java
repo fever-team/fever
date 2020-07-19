@@ -4,8 +4,10 @@ import com.fever.agent.model.CustomMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -25,9 +27,22 @@ public class CustomMessageListener {
 
         WebClient webClient = WebClient.builder().build();
         Map<Mono<String>, Integer> mapping = new HashMap<>();
-
+        
         for (int i = 0; i < message.getUserCount(); i++) {
-            Mono<String> mono = webClient.get().uri(message.getText()).retrieve().bodyToMono(String.class);
+            Mono<String> mono = webClient.get().uri(message.getText())
+                    .accept(MediaType.APPLICATION_JSON).exchange()
+                    .flatMap((var response) -> {
+                        if (response.statusCode().isError()) {
+                            return Mono.error(new WebClientResponseException(
+                                    response.statusCode().value(), response.statusCode().getReasonPhrase()
+                                    , response.headers().asHttpHeaders(), null, null));
+                        }
+                        return response.bodyToMono(String.class);
+                    }).onErrorMap(e -> {
+                        log.error(e.getMessage());
+                        return e;
+                    });
+
             mapping.put(mono, i);
 
             System.out.print(i + " ");
