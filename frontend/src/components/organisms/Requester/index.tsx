@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { InputGroup, Button } from '@blueprintjs/core';
 
 import Form from '../../atoms/Form';
+import MethodSelector from '../../molecules/MethodSelector';
 import { Props as MainProps } from '../../pages/Main';
+
 import testOnce from '../../../api/controller/testOnce';
 
 
@@ -29,6 +31,7 @@ const Requester: React.FC<Props> = (props: Props) => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <MethodSelector {...props} />
       <InputGroup
         leftIcon="search"
         placeholder={props.i18n.t('input:requester:placeholder')}
