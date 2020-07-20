@@ -2,39 +2,30 @@ package com.fever.fevercontroller.model;
 
 public class CustomMessage {
 
-    private String text;
+    private String requestURL;
 
-    private int userCount;
+    private int totalSecond;
 
-    private boolean secret;
+    private int interval;
 
     protected CustomMessage() {
     }
 
-    public CustomMessage(String text, int userCount, boolean secret) {
-        this.text = text;
-        this.userCount = userCount;
-        this.secret = secret;
+    public CustomMessage(String requestURL, int totalSecond, int interval) {
+        this.requestURL = requestURL;
+        this.totalSecond = totalSecond;
+        this.interval = interval;
     }
 
-    public String getText() {
-        return text;
+    public String getRequestURL() {
+        return requestURL;
     }
 
-    public int getUserCount() {
-        return userCount;
+    public int getTotalSecond() {
+        return totalSecond;
     }
 
-    public boolean isSecret() {
-        return secret;
-    }
-
-    @Override
-    public String toString() {
-        return "CustomMessage{" +
-                "text='" + text + '\'' +
-                ", userCount=" + userCount +
-                ", secret=" + secret +
-                '}';
+    public int getInterval() {
+        return interval;
     }
 }
