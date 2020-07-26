@@ -3,18 +3,19 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { InputGroup, Button, Tag, Intent } from '@blueprintjs/core';
 
+import { Props as AppProps } from '../../App';
 import Form from '../../atoms/Form';
 import FlexWrapper from '../../atoms/FlexWrapper';
 import MethodSelector, { Method } from '../../molecules/MethodSelector';
 import Card from '../../molecules/Card';
-import { Props as MainProps } from '../../pages/Main';
+import ResponseCard, { Props as ResponseCardProps, ResponseData } from '../../molecules/ResponseCard';
 
 import testOnce, { TestOnceResponse } from '../../../api/controller/testOnce';
 import statusIntent from '../../../utils/statusIntent';
 import methodState from '../../../utils/requester/method';
 
 
-export interface Props extends MainProps { }
+export interface Props extends AppProps { }
 
 export interface CardData extends TestOnceResponse {
   intent: Intent;
@@ -39,7 +40,7 @@ const InputGroupWrapper = styled.div`
 
 
 const Requester: React.FC<Props> = (props: Props) => {
-  const emptyResponse: CardData = {
+  const emptyData: ResponseData = {
     status: null,
     duration: null,
     intent: 'none',
@@ -47,7 +48,7 @@ const Requester: React.FC<Props> = (props: Props) => {
 
   const [userInput, setUserInput] = useState<string>("");
   const [cardLoading, setCardLoading] = useState<boolean | null>(null);
-  const [cardData, setCardData] = useState<CardData>(emptyResponse);
+  const [cardData, setCardData] = useState<ResponseData>(emptyData);
 
   const [method, setMethod] = useRecoilState<Method>(methodState);
 
@@ -62,7 +63,7 @@ const Requester: React.FC<Props> = (props: Props) => {
     e.preventDefault();
 
     // request를 보내려는 순간 카드가 나타남. (로딩 중)
-    setCardData(emptyResponse);
+    setCardData(emptyData);
     setCardLoading(true);
     const result = await testOnce(userInput, method);
 
@@ -95,14 +96,7 @@ const Requester: React.FC<Props> = (props: Props) => {
             rightElement={SubmitButton}
           />
           {cardLoading != null &&
-            <Card
-              loading={cardLoading}
-              title={props.i18n.t(`input:requester:results:${cardData.intent}`)}
-              intent={cardData.intent}
-            >
-              <p><Tag>status</Tag> { cardData.status }</p>
-              <p><Tag>duration</Tag> { cardData.duration }ms</p>
-            </Card>
+            <ResponseCard loading={cardLoading} data={cardData} {...props} />
           }
         </InputGroupWrapper>
       </Wrapper>
