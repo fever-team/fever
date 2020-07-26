@@ -39,7 +39,7 @@ const Requester: React.FC<Props> = (props: Props) => {
 
   // request에 사용할 method
   const methodState = atom<Method>({
-    key: 'method',
+    key: 'requester-method',
     default: 'GET',
   });
   const [method, setMethod] = useRecoilState<Method>(methodState);
@@ -53,7 +53,7 @@ const Requester: React.FC<Props> = (props: Props) => {
   // button을 클릭하면 submit
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const result = await testOnce(userInput, 'get');
+    const result = await testOnce(userInput, method);
     console.log(result);
   }
 
