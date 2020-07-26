@@ -28,4 +28,13 @@ public class CustomMessage {
     public int getInterval() {
         return interval;
     }
+
+    @Override
+    public String toString() {
+        return "CustomMessage{" +
+                "requestURL='" + requestURL + '\'' +
+                ", totalSecond=" + totalSecond +
+                ", interval=" + interval +
+                '}';
+    }
 }
