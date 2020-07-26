@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { atom, useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { InputGroup, Button, Code } from '@blueprintjs/core';
+import { InputGroup, Button, Tag, Intent } from '@blueprintjs/core';
 
 import Form from '../../atoms/Form';
 import FlexWrapper from '../../atoms/FlexWrapper';
@@ -10,9 +10,14 @@ import Card from '../../molecules/Card';
 import { Props as MainProps } from '../../pages/Main';
 
 import testOnce, { TestOnceResponse } from '../../../api/controller/testOnce';
+import statusIntent from '../../../utils/statusIntent';
 
 
 export interface Props extends MainProps { }
+
+export interface CardData extends TestOnceResponse {
+  intent: Intent;
+}
 
 
 const Wrapper = styled(FlexWrapper)`
@@ -36,14 +41,15 @@ const SubmitButton = <Button minimal={true} intent="primary" icon="arrow-right" 
 
 
 const Requester: React.FC<Props> = (props: Props) => {
-  const emptyResponse: TestOnceResponse = {
+  const emptyResponse: CardData = {
     status: null,
     duration: null,
+    intent: 'none',
   }
 
   const [userInput, setUserInput] = useState<string>("");
   const [cardLoading, setCardLoading] = useState<boolean | null>(null);
-  const [cardData, setCardData] = useState<TestOnceResponse>(emptyResponse);
+  const [cardData, setCardData] = useState<CardData>(emptyResponse);
 
   // request에 사용할 method
   const methodState = atom<Method>({
@@ -67,7 +73,11 @@ const Requester: React.FC<Props> = (props: Props) => {
     setCardLoading(true);
     const result = await testOnce(userInput, method);
 
-    setCardData(result);
+    const cardResult = {
+      ...result,
+      intent: statusIntent(result.status),
+    };
+    setCardData(cardResult);
     setCardLoading(false);
   }
 
@@ -85,9 +95,13 @@ const Requester: React.FC<Props> = (props: Props) => {
             rightElement={SubmitButton}
           />
           {cardLoading != null &&
-            <Card loading={cardLoading}>
-              <div><Code>status</Code> { cardData.status }</div>
-              <div><Code>duration</Code> { cardData.duration }</div>
+            <Card
+              loading={cardLoading}
+              title={props.i18n.t(`input:requester:results:${cardData.intent}`)}
+              intent={cardData.intent}
+            >
+              <p><Tag>status</Tag> { cardData.status }</p>
+              <p><Tag>duration</Tag> { cardData.duration }</p>
             </Card>
           }
         </InputGroupWrapper>

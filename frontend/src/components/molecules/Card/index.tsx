@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card as BPCard, Elevation, Spinner } from '@blueprintjs/core';
+import { Callout as BPCallout, Spinner, Intent } from '@blueprintjs/core';
 
 export interface Props {
   children: React.ReactNode;
   loading: boolean;
+  title: string;
+  intent: Intent;
 }
 
 
-const BluePrintCard = styled(BPCard)`
+const BluePrintCallout = styled(BPCallout)`
   margin-top: 1rem;
   margin-bottom: 1rem;
 `
@@ -26,9 +28,9 @@ const Card: React.FC<Props> = (props: Props) => {
   const content = getContent(props);
 
   return (
-    <BluePrintCard interactive={false} elevation={Elevation.ZERO}>
+    <BluePrintCallout title={props.title} intent={props.intent}>
       {content}
-    </BluePrintCard>
+    </BluePrintCallout>
   )
 }
 

@@ -10,7 +10,13 @@ const translations: ResourceLanguage = {
   },
   input: {
     requester: {
-      placeholder: 'Input your api to test.'
+      placeholder: 'Input your api to test.',
+      results: {
+        success: 'Success',
+        warning: 'Warning',
+        danger: 'Failed',
+        none: 'Info'
+      }
     }
   }
 }
