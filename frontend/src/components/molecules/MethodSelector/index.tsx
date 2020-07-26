@@ -12,13 +12,13 @@ export interface Props extends RequesterProps {
   methodState: RecoilState<Method>;
 }
 
-export type Method = 'GET' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'POST' | 'PUT' | 'PATCH';
+export type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS';
 
 const MethodSelect = Select.ofType<Method>();
 
 
 const MethodSelector: React.FC<Props> = (props: Props) => {
-  const methods: Method[] = ['GET', 'DELETE', 'HEAD', 'OPTIONS', 'POST', 'PUT', 'PATCH'];
+  const methods: Method[] = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
   const [method, setMethod] = useRecoilState<Method>(props.methodState);
 
   const MethodRenderer = (item: Method, itemProps: IItemRendererProps) => {

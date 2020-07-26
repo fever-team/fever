@@ -65,7 +65,7 @@ const Requester: React.FC<Props> = (props: Props) => {
         </ButtonWrapper>
         <InputGroupWrapper>
           <InputGroup
-            leftIcon="search"
+            leftIcon='search'
             placeholder={props.i18n.t('input:requester:placeholder')}
             onChange={handleChange}
             rightElement={SubmitButton}
