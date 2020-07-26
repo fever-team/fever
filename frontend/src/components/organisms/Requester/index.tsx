@@ -38,9 +38,6 @@ const InputGroupWrapper = styled.div`
 `
 
 
-const SubmitButton = <Button minimal={true} intent="primary" icon="arrow-right" />;
-
-
 const Requester: React.FC<Props> = (props: Props) => {
   const emptyResponse: CardData = {
     status: null,
@@ -77,6 +74,13 @@ const Requester: React.FC<Props> = (props: Props) => {
     setCardLoading(false);
   }
 
+  const SubmitButton = <Button
+    minimal={true}
+    intent="primary"
+    icon="arrow-right"
+    type="submit"
+  />;
+
   return (
     <Form onSubmit={handleSubmit}>
       <Wrapper>
@@ -97,7 +101,7 @@ const Requester: React.FC<Props> = (props: Props) => {
               intent={cardData.intent}
             >
               <p><Tag>status</Tag> { cardData.status }</p>
-              <p><Tag>duration</Tag> { cardData.duration }</p>
+              <p><Tag>duration</Tag> { cardData.duration }ms</p>
             </Card>
           }
         </InputGroupWrapper>
