@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { atom, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { InputGroup, Button, Tag, Intent } from '@blueprintjs/core';
 
@@ -11,6 +11,7 @@ import { Props as MainProps } from '../../pages/Main';
 
 import testOnce, { TestOnceResponse } from '../../../api/controller/testOnce';
 import statusIntent from '../../../utils/statusIntent';
+import methodState from '../../../utils/requester/method';
 
 
 export interface Props extends MainProps { }
@@ -51,11 +52,6 @@ const Requester: React.FC<Props> = (props: Props) => {
   const [cardLoading, setCardLoading] = useState<boolean | null>(null);
   const [cardData, setCardData] = useState<CardData>(emptyResponse);
 
-  // request에 사용할 method
-  const methodState = atom<Method>({
-    key: 'requester-method',
-    default: 'GET',
-  });
   const [method, setMethod] = useRecoilState<Method>(methodState);
 
   // request에 사용할 url
