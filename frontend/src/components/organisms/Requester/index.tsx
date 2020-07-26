@@ -7,8 +7,7 @@ import { Props as AppProps } from '../../App';
 import Form from '../../atoms/Form';
 import FlexWrapper from '../../atoms/FlexWrapper';
 import MethodSelector, { Method } from '../../molecules/MethodSelector';
-import Card from '../../molecules/Card';
-import ResponseCard, { Props as ResponseCardProps, ResponseData } from '../../molecules/ResponseCard';
+import ResponseCard, { ResponseData } from '../../molecules/ResponseCard';
 
 import testOnce, { TestOnceResponse } from '../../../api/controller/testOnce';
 import statusIntent from '../../../utils/statusIntent';
