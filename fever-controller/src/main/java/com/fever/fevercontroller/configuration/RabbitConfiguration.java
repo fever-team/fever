@@ -2,6 +2,7 @@ package com.fever.fevercontroller.configuration;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -41,7 +42,7 @@ public class RabbitConfiguration {
 
     @Bean
     Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(FEVER_TPS_QUEUE);
+        return BindingBuilder.bind(queue).to(exchange).with("fever.#");
     }
 
 }
