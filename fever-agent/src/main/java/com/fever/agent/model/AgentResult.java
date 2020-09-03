@@ -12,6 +12,6 @@ public class AgentResult {
     private Double avgTPS;
     private Integer peekTPS;
     private Integer executeTestCount;
-    private Integer successTsetCount;
+    private Integer successTestCount;
     private Integer errorTestCount;
 }

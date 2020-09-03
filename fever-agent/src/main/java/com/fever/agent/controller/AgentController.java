@@ -20,6 +20,7 @@ public class AgentController {
     @PostMapping(value = "/run")
     public void run(@RequestBody ExecuteRequest executeRequest) throws Exception {
         agentManager.start();
+        agentManager.setTotalVirtualUser(executeRequest.getTotalUser());
         agentService.run(executeRequest, agentManager);
     }
 }

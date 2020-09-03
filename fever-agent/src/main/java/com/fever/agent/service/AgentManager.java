@@ -18,8 +18,11 @@ import java.util.List;
 @Scope("prototype")
 public class AgentManager {
 
+    private Integer totalVirtualUser;
     private Integer activeUser;
     private Integer executedTestCount;
+    private Integer successCount;
+    private Integer errorCount;
     private Boolean isRun;
     private List<Integer> tpsList = new ArrayList<>();
 
@@ -27,6 +30,8 @@ public class AgentManager {
     public void start() throws InterruptedException {
         this.activeUser = 0;
         this.executedTestCount = 0;
+        this.successCount = 0;
+        this.errorCount = 0;
         this.isRun = true;
 
         while (isRun) {
@@ -46,11 +51,22 @@ public class AgentManager {
         agentResult.setAvgTPS(average);
         agentResult.setPeekTPS(Collections.max(tpsList));
         agentResult.setExecuteTestCount(this.executedTestCount);
+        agentResult.setSuccessTestCount(this.successCount);
+        agentResult.setErrorTestCount(this.errorCount);
+        agentResult.setTotalVirtualUser(this.totalVirtualUser);
         System.out.println(agentResult.toString());
     }
 
     public void increaseUserCount() {
         this.activeUser++;
+    }
+
+    public void increaseSuccessCount() {
+        this.successCount++;
+    }
+
+    public void increaseErrorCount() {
+        this.errorCount++;
     }
 
     public void increaseTestCount() {
