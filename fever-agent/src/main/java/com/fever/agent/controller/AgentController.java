@@ -14,11 +14,9 @@ public class AgentController {
     @Autowired
     AgentService agentService;
 
-    @Autowired
-    AgentManager agentManager;
-
     @PostMapping(value = "/run")
-    public void run(@RequestBody ExecuteRequest executeRequest) throws Exception {
+    public void run(@RequestBody ExecuteRequest executeRequest) {
+        AgentManager agentManager = new AgentManager();
         agentManager.start();
         agentManager.setTotalVirtualUser(executeRequest.getTotalUser());
         agentService.run(executeRequest, agentManager);
