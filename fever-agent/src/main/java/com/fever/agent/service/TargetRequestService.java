@@ -29,5 +29,6 @@ public class TargetRequestService {
                     .bodyToMono(String.class)
                     .block();
         }
+        agentManager.setIsRun(false);
     }
 }

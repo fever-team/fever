@@ -1,28 +1,52 @@
 package com.fever.agent.service;
 
+import com.fever.agent.model.AgentResult;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Getter
 @Setter
-@Service
+@Component
+@Scope("prototype")
 public class AgentManager {
 
-    private Integer activeUser = 0;
-    private Integer executedTestCount = 0;
-    private Boolean isRun = true;
+    private Integer activeUser;
+    private Integer executedTestCount;
+    private Boolean isRun;
+    private List<Integer> tpsList = new ArrayList<>();
 
     @Async
     public void start() throws InterruptedException {
+        this.activeUser = 0;
+        this.executedTestCount = 0;
+        this.isRun = true;
+
         while (isRun) {
+            this.activeUser = 0;
             Thread.sleep(1000);
+            if (!isRun) {
+                break;
+            }
+            tpsList.add(activeUser);
             System.out.println("Active User : " + activeUser);
             System.out.println("Execute Test Count : " + this.executedTestCount);
-            this.activeUser = 0;
-
         }
+
+        Double average = tpsList.stream().mapToInt(val -> val).average().orElse(0.0);
+
+        AgentResult agentResult = new AgentResult();
+        agentResult.setAvgTPS(average);
+        agentResult.setPeekTPS(Collections.max(tpsList));
+        agentResult.setExecuteTestCount(this.executedTestCount);
+        System.out.println(agentResult.toString());
     }
 
     public void increaseUserCount() {
