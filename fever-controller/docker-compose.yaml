@@ -1,0 +1,6 @@
+# 도커를 통한 RabbitMQ 서버를 활용하는 경우
+rabbitmq:
+  image: rabbitmq:management
+  ports:
+    - "5672:5672"
+    - "15672:15672"

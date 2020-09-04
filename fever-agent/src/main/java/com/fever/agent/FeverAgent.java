@@ -1,14 +1,11 @@
 package com.fever.agent;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class FeverAgent {
-
     public static void main(String[] args) {
-        FeverAgent agent = new FeverAgent();
-        agent.startAgent();
-    }
-
-    public void startAgent() {
-        AgentController agentController = new AgentController();
-        agentController.run();
+        SpringApplication.run(FeverAgent.class, args);
     }
 }
