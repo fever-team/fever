@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class AgentManager {
 
-    private Integer totalVirtualUser;
+    private Integer  totalVirtualUser;
     private Integer activeUser;
     private Integer executedTestCount;
     private Integer successCount;
@@ -55,7 +55,7 @@ public class AgentManager {
             AgentResultResponse agentResultResponse = new AgentResultResponse();
             agentResultResponse.setAvgTPS(average);
             agentResultResponse.setPeekTPS(Collections.max(tpsList));
-            agentResultResponse.setExecuteTestCount(this.executedTestCount);
+            agentResultResponse.setExecuteTestCount(this.successCount + this.errorCount);
             agentResultResponse.setSuccessTestCount(this.successCount);
             agentResultResponse.setErrorTestCount(this.errorCount);
             agentResultResponse.setTotalVirtualUser(this.totalVirtualUser);
@@ -75,7 +75,8 @@ public class AgentManager {
         this.errorCount++;
     }
 
-    public void increaseTestCount() {
-        this.executedTestCount++;
+    public void decreaseUserCount() {
+        this.activeUser--;
     }
+
 }
