@@ -1,8 +1,9 @@
 package com.fever.agent.service;
 
+import com.fever.agent.BeanUtils;
 import com.fever.agent.model.AgentResult;
-import lombok.Getter;
 import lombok.Setter;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +31,8 @@ public class AgentManager {
     }
 
     public void start() {
+        RabbitTemplate rabbitTemplate = (RabbitTemplate)BeanUtils.getBean("rabbitTemplate");
+
         new Thread(()->{
 
             while (isRun) {
@@ -44,8 +47,7 @@ public class AgentManager {
                     break;
                 }
                 tpsList.add(activeUser);
-                System.out.println("Active User : " + activeUser);
-                System.out.println("Execute Test Count : " + this.executedTestCount);
+                rabbitTemplate.convertAndSend("fever-agent-tps-queue", activeUser);
             }
 
             Double average = tpsList.stream().mapToInt(val -> val).average().orElse(0.0);
@@ -57,8 +59,7 @@ public class AgentManager {
             agentResult.setSuccessTestCount(this.successCount);
             agentResult.setErrorTestCount(this.errorCount);
             agentResult.setTotalVirtualUser(this.totalVirtualUser);
-            System.out.println(agentResult.toString());
-
+            rabbitTemplate.convertAndSend("fever-agent-result-queue", agentResult);
         }).start();
     }
 
