@@ -1,8 +1,9 @@
-spring:
-  rabbitmq:
-    username: "username"
-    password: "password"
-    port: 5672
-
 server:
   port: 8081
+
+spring:
+  rabbitmq:
+    host: "ec2-18-222-240-255.us-east-2.compute.amazonaws.com"
+    port: 5672
+    username: "username"
+    password: "password"
