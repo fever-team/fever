@@ -1,7 +1,7 @@
 package com.fever.agent.service;
 
 import com.fever.agent.BeanUtils;
-import com.fever.agent.model.AgentResult;
+import com.fever.agent.model.AgentResultResponse;
 import lombok.Setter;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
@@ -52,14 +52,14 @@ public class AgentManager {
 
             Double average = tpsList.stream().mapToInt(val -> val).average().orElse(0.0);
 
-            AgentResult agentResult = new AgentResult();
-            agentResult.setAvgTPS(average);
-            agentResult.setPeekTPS(Collections.max(tpsList));
-            agentResult.setExecuteTestCount(this.executedTestCount);
-            agentResult.setSuccessTestCount(this.successCount);
-            agentResult.setErrorTestCount(this.errorCount);
-            agentResult.setTotalVirtualUser(this.totalVirtualUser);
-            rabbitTemplate.convertAndSend("fever-agent-result-queue", agentResult);
+            AgentResultResponse agentResultResponse = new AgentResultResponse();
+            agentResultResponse.setAvgTPS(average);
+            agentResultResponse.setPeekTPS(Collections.max(tpsList));
+            agentResultResponse.setExecuteTestCount(this.executedTestCount);
+            agentResultResponse.setSuccessTestCount(this.successCount);
+            agentResultResponse.setErrorTestCount(this.errorCount);
+            agentResultResponse.setTotalVirtualUser(this.totalVirtualUser);
+            rabbitTemplate.convertAndSend("fever-agent-result-queue", agentResultResponse);
         }).start();
     }
 
