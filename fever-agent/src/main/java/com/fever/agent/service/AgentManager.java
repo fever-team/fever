@@ -1,8 +1,9 @@
 package com.fever.agent.service;
 
-import com.fever.agent.model.AgentResult;
-import lombok.Getter;
+import com.fever.agent.BeanUtils;
+import com.fever.agent.model.AgentResultResponse;
 import lombok.Setter;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +12,7 @@ import java.util.List;
 @Setter
 public class AgentManager {
 
-    private Integer totalVirtualUser;
+    private Integer  totalVirtualUser;
     private Integer activeUser;
     private Integer executedTestCount;
     private Integer successCount;
@@ -30,6 +31,8 @@ public class AgentManager {
     }
 
     public void start() {
+        RabbitTemplate rabbitTemplate = (RabbitTemplate)BeanUtils.getBean("rabbitTemplate");
+
         new Thread(()->{
 
             while (isRun) {
@@ -44,21 +47,19 @@ public class AgentManager {
                     break;
                 }
                 tpsList.add(activeUser);
-                System.out.println("Active User : " + activeUser);
-                System.out.println("Execute Test Count : " + this.executedTestCount);
+                rabbitTemplate.convertAndSend("fever-agent-tps-queue", activeUser);
             }
 
             Double average = tpsList.stream().mapToInt(val -> val).average().orElse(0.0);
 
-            AgentResult agentResult = new AgentResult();
-            agentResult.setAvgTPS(average);
-            agentResult.setPeekTPS(Collections.max(tpsList));
-            agentResult.setExecuteTestCount(this.executedTestCount);
-            agentResult.setSuccessTestCount(this.successCount);
-            agentResult.setErrorTestCount(this.errorCount);
-            agentResult.setTotalVirtualUser(this.totalVirtualUser);
-            System.out.println(agentResult.toString());
-
+            AgentResultResponse agentResultResponse = new AgentResultResponse();
+            agentResultResponse.setAvgTPS(average);
+            agentResultResponse.setPeekTPS(Collections.max(tpsList));
+            agentResultResponse.setExecuteTestCount(this.successCount + this.errorCount);
+            agentResultResponse.setSuccessTestCount(this.successCount);
+            agentResultResponse.setErrorTestCount(this.errorCount);
+            agentResultResponse.setTotalVirtualUser(this.totalVirtualUser);
+            rabbitTemplate.convertAndSend("fever-agent-result-queue", agentResultResponse);
         }).start();
     }
 
@@ -74,7 +75,8 @@ public class AgentManager {
         this.errorCount++;
     }
 
-    public void increaseTestCount() {
-        this.executedTestCount++;
+    public void decreaseUserCount() {
+        this.activeUser--;
     }
+
 }

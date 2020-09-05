@@ -1,6 +1,6 @@
 package com.fever.agent.controller;
 
-import com.fever.agent.model.ExecuteRequest;
+import com.fever.agent.model.RunRequest;
 import com.fever.agent.service.AgentManager;
 import com.fever.agent.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ public class AgentController {
     AgentService agentService;
 
     @PostMapping(value = "/run")
-    public void run(@RequestBody ExecuteRequest executeRequest) {
+    public void run(@RequestBody RunRequest runRequest) {
         AgentManager agentManager = new AgentManager();
         agentManager.start();
-        agentManager.setTotalVirtualUser(executeRequest.getTotalUser());
-        agentService.run(executeRequest, agentManager);
+        agentManager.setTotalVirtualUser(runRequest.getTotalUser());
+        agentService.run(runRequest, agentManager);
     }
 }

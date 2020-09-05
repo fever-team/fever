@@ -10,12 +10,13 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 public class AsyncConfig {
+
     @Bean(name = "threadPoolTaskExecutor")
     public Executor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setCorePoolSize(100);
-        taskExecutor.setMaxPoolSize(100);
-        taskExecutor.setQueueCapacity(10);;
+        taskExecutor.setCorePoolSize(Runtime.getRuntime().availableProcessors());
+        taskExecutor.setMaxPoolSize(3500);
+        taskExecutor.setQueueCapacity(0);
         taskExecutor.setThreadNamePrefix("AgentThread-");
         taskExecutor.initialize();
         return taskExecutor;
