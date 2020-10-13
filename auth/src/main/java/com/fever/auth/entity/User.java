@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -20,6 +21,7 @@ public class User implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    private Date date;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
