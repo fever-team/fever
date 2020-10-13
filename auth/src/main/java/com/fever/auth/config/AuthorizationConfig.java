@@ -50,7 +50,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        accessTokenConverter.setSigningKey(resourceServerProperties.getJwt().getKeyValue());
+        accessTokenConverter.setSigningKey("fever-secret");
 
         return accessTokenConverter;
     }
