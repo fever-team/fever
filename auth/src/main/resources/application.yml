@@ -14,3 +14,12 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     properties.hibernate.hbm2ddl.auto: update
     showSql: true
+
+security:
+  oauth2:
+    client:
+      client-id: auth-id
+      client-secret: auth-secret
+    resource:
+      jwt:
+        key-value: jwt_secret_key
