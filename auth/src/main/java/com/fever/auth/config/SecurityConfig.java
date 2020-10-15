@@ -26,10 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         security.csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
-                .authorizeRequests().antMatchers("/oauth/**", "/oauth2/callback", "/h2-console/*").permitAll()
-                .and()
-                .formLogin().and()
-                .httpBasic();
+                .authorizeRequests().antMatchers("/oauth/**", "/oauth2/callback", "/h2-console/*").permitAll();
     }
 
     @Override
@@ -38,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
