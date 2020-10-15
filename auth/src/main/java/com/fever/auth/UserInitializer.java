@@ -35,6 +35,10 @@ public class UserInitializer implements ApplicationRunner {
         user.setPassword(passwordEncoder.encode("pass"));
         user.setAuthorities(authoritylist);
         user.setDate(new Date());
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
         userDao.save(user);
     }
 
